@@ -92,6 +92,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6643226161039900174}
+  - component: {fileID: 2640787922643986238}
+  - component: {fileID: 6936683827447497036}
+  - component: {fileID: -7021925098022576794}
   m_Layer: 0
   m_Name: MediumFish
   m_TagString: Untagged
@@ -115,6 +118,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2640787922643986238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401503511741547427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c7658a3fc540e4687505b505fbd30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxAccel: 3
+  maxSpeed: 4
+  maxAngularAccel: 360
+  maxRotation: 180
+  targetTag: 
+--- !u!114 &6936683827447497036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401503511741547427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea839535dbcf4faa994c3dd117dc768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  targetAngleRadius: 1
+  slowdownAngleRadius: 10
+  timeToTarget: 0.1
+  wanderOffset: 4
+  wanderRadius: 1
+  wanderRate: 0.5
+--- !u!114 &-7021925098022576794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4401503511741547427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c628ffe37efd4a642a8180ab24da1d5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  radius: 1
 --- !u!1 &7367132378925173217
 GameObject:
   m_ObjectHideFlags: 0
