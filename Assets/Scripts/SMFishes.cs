@@ -15,10 +15,19 @@ public class SMFishes : MonoBehaviour
 
     private DynamicAgent dagent;
     private StateMachine fsm;
+    private FishInfoPanel infoPanel;
     private Food food;
 
     private float energy;
-    private Food food;
+    private float Energy
+    {
+        get => energy;
+        set
+        {
+            energy = value;
+            infoPanel.Energy = value;
+        }
+    }
 
     private Food foodTarget;
     private Food enemyTarget;
@@ -27,6 +36,7 @@ public class SMFishes : MonoBehaviour
     {
         dagent = GetComponent<DynamicAgent>();
         food = GetComponent<Food>();
+        infoPanel = GetComponentInChildren<FishInfoPanel>();
 
         // States
         State wanderState = new State("Wander",
@@ -139,8 +149,8 @@ public class SMFishes : MonoBehaviour
                 if (foodData == potentialFood.Data)
                 {
                     enemyTarget = potentialFood;
-        }
-        }
+                }
+            }
         }
     }
 
@@ -153,7 +163,7 @@ public class SMFishes : MonoBehaviour
 
         if (distanceToFood > eatingRange) return;
 
-        energy = energy + foodTarget.Data.EnergyGranted;
+        Energy = Energy + foodTarget.Data.EnergyGranted;
         foodTarget.BeEaten();
     }
 
