@@ -52,19 +52,22 @@ public class SMFishes : MonoBehaviour
         food = GetComponent<Food>();
 
         // States
+        Action wanderActions = Reproduce;
         State wanderState = new State("Wander",
             null,
-            Wander,
+            wanderActions,
             null);
 
+        Action huntingActions = Eat;
+        huntingActions += Reproduce;
         State huntingState = new State("Hunting",
             null,
-            Eat,
+            huntingActions,
             null);
 
         State runState = new State("Run",
             null,
-            Run,
+            null,
             null);
 
         // Transitions from "wander"
@@ -110,16 +113,6 @@ public class SMFishes : MonoBehaviour
 
         LoseEnergy();
         UpdateEntitiesInRange();
-    }
-
-    private void Run()
-    {
-
-    }
-
-    private void Wander()
-    {
-        Reproduce();
     }
 
     private void UpdateEntitiesInRange()

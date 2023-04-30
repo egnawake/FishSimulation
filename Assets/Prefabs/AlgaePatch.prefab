@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   algaePrefab: {fileID: 2199426276005048821, guid: ca5d947f08d747b45ba14dbf5b8aa84c, type: 3}
-  growthChance: 0.5
+  growthChance: 0.25
   growthRate: 1
   maxAlgaePieces: 6

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b0d30f99de182144973f038685ec771, type: 3}
   m_Name: SmallFish
   m_EditorClassIdentifier: 
-  energyGranted: 10
+  energyGranted: 30
   edibleBy:
   - {fileID: 11400000, guid: 50eee8b0ae9188c44934fa4f10753566, type: 2}
   - {fileID: 11400000, guid: 4e43041c93aefa840b3371fadae1df77, type: 2}
