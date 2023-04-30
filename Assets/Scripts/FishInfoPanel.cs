@@ -3,7 +3,7 @@ using TMPro;
 
 public class FishInfoPanel : MonoBehaviour
 {
-    [SerializeField] private SMFishes parentFish;
+    [SerializeField] private FishController parentFish;
     [SerializeField] private TMP_Text energyText;
     [SerializeField] private Vector3 offset;
 

@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5172145475945985638
 RectTransform:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc5ddc45a03b7948a51eef88761ab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentFish: {fileID: 2881856731492793334}
+  parentFish: {fileID: 2757491925645990628}
   energyText: {fileID: 4545736298960687139}
   offset: {x: 0, y: 0.762, z: -0.45}
 --- !u!1 &2549898004758846562
@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 4775852283311219151}
   - component: {fileID: 3881557899200209570}
   - component: {fileID: 6785894550895069551}
-  - component: {fileID: 2881856731492793334}
+  - component: {fileID: 2757491925645990628}
   - component: {fileID: 6764062965127081553}
   - component: {fileID: 3727931632944999554}
   - component: {fileID: 4199872009785067143}
@@ -465,7 +465,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.82393205, y: 0.4270162}
   m_Direction: 1
---- !u!114 &2881856731492793334
+--- !u!114 &2757491925645990628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -474,7 +474,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2549898004758846562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fa7cf5a1ad6b15478bbd6348ae414dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 8319ef7e922540441abdeaecc5018935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 4

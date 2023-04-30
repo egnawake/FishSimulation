@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 using LibGameAI.FSMs;
 using AIUnityExamples.Movement.Dynamic;
 
-public class SMFishes : MonoBehaviour
+public class FishController : MonoBehaviour
 {
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float eatingRange = 0.5f;
@@ -185,7 +185,7 @@ public class SMFishes : MonoBehaviour
 
         GameObject child = Instantiate(childPrefab);
         PositionChild(child);
-        child.GetComponent<SMFishes>().Energy = Energy / 2;
+        child.GetComponent<FishController>().Energy = Energy / 2;
 
         Energy = Energy / 2;
     }
