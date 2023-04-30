@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3881557899200209570}
   - component: {fileID: 6785894550895069551}
   - component: {fileID: 2881856731492793334}
+  - component: {fileID: 6764062965127081553}
   - component: {fileID: 3727931632944999554}
   - component: {fileID: 4199872009785067143}
   - component: {fileID: 7770749496339641938}
@@ -154,7 +155,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -174,6 +175,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 4
   eatingRange: 0.5
+--- !u!114 &6764062965127081553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2549898004758846562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1561decf0972a48b1eb3b00ec826b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodData: {fileID: 11400000, guid: 1d109c67863fa0f448cba8c7dc8572ad, type: 2}
 --- !u!114 &3727931632944999554
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0d30f99de182144973f038685ec771, type: 3}
+  m_Name: Algae
+  m_EditorClassIdentifier: 
+  energyGranted: 10
+  edibleBy:
+  - {fileID: 11400000, guid: 1d109c67863fa0f448cba8c7dc8572ad, type: 2}
+  - {fileID: 11400000, guid: 50eee8b0ae9188c44934fa4f10753566, type: 2}
+  - {fileID: 11400000, guid: 4e43041c93aefa840b3371fadae1df77, type: 2}

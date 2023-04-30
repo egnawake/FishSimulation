@@ -15,12 +15,15 @@ public class SMFishes : MonoBehaviour
     private StateMachine fsm;
 
     private float energy;
-    private GameObject enemy;
-    private Algae food;
+    private Food food;
+
+    private Food foodTarget;
+    private Food enemy;
 
     private void Start()
     {
         dagent = GetComponent<DynamicAgent>();
+        food = GetComponent<Food>();
 
         State wanderState = new State("Wander", () => Debug.Log("Enter wander state"), Wander, () => Debug.Log("Exit on wander state"));
 
@@ -83,8 +86,8 @@ public class SMFishes : MonoBehaviour
         //Action actionToDo = fsm.Update();
         //actionToDo?.Invoke();
 
-        UpdateEntitiesInRange();
         Eat();
+        UpdateEntitiesInRange();
     }
 
     private void Run()
@@ -111,25 +114,55 @@ public class SMFishes : MonoBehaviour
         // Sort entities by distance
         IEnumerable<GameObject> sortedEntities = entitiesInRange
             .Select(collider => collider.gameObject)
+            .Where(gameObject => this.gameObject != gameObject)
             .OrderBy(gameObject => (transform.position - gameObject.transform.position).magnitude);
 
-        // Get closest algae object
-        GameObject algaeObject = sortedEntities.FirstOrDefault(
-            gameObject => gameObject.GetComponent<Algae>() != null);
+        // Get closest (first) food in entities
+        Food potentialFood = null;
+        foreach (GameObject entity in sortedEntities)
+        {
+            potentialFood = entity.GetComponent<Food>();
+            if (potentialFood != null) break;
+        }
 
-        dagent.TargetObject = algaeObject;
-        food = algaeObject?.GetComponent<Algae>();
+        // If food is edible by us, register it as target
+        if (potentialFood != null)
+        {
+            foreach (FoodData foodData in potentialFood.Data.EdibleBy)
+            {
+                if (foodData == food.Data)
+                {
+                    foodTarget = potentialFood;
+                }
+            }
+        }
+        else
+        {
+            foodTarget = null;
+        }
+
+        dagent.TargetObject = foodTarget?.gameObject;
     }
 
     private void Eat()
     {
-        if (food == null) return;
+        if (foodTarget == null) return;
 
-        float distanceToFood = Vector3.Distance(food.transform.position,
+        float distanceToFood = Vector3.Distance(foodTarget.transform.position,
             transform.position);
 
         if (distanceToFood > eatingRange) return;
 
-        energy = energy + food.BeEaten();
+        energy = energy + foodTarget.Data.EnergyGranted;
+        foodTarget.BeEaten();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (foodTarget != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, foodTarget.transform.position);
+        }
     }
 }

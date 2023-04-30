@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9115960380174195379}
-  - component: {fileID: 9115960380174195381}
   - component: {fileID: 9115960380174195378}
+  - component: {fileID: 8218280680159609319}
   m_Layer: 0
   m_Name: Algae
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9115960380174195381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9115960380174195376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1578d2af1e05a894cb82a4b8bd1d6e54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyGranted: 10
 --- !u!58 &9115960380174195378
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -63,6 +50,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8218280680159609319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9115960380174195376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f1561decf0972a48b1eb3b00ec826b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodData: {fileID: 11400000, guid: a9583e3d9b12dfe49b9c02a3cabe0a05, type: 2}
 --- !u!1001 &2960332012871834383
 PrefabInstance:
   m_ObjectHideFlags: 0
