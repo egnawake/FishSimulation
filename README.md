@@ -14,7 +14,7 @@
 
 ## Introdução
 
-O problema presente neste projecto é como representar, de maneina mininamente objetiva, o comportamento de um ecosistema aquático. A resolução encontrada foi o uso de _State machines_ para simular os peixes presentes na simulação assim como as próprias algas que neste projeto foram tratadas da mesma maneira.
+O problema presente neste projecto é como representar, de maneina mininamente objetiva, o comportamento de um ecosistema aquático. A resolução encontrada foi o uso de _State machines_ para simular os peixes presentes na simulação.
 Depois de alguma investigação o resultado deve ser uma oscilação constante entre as 4 espécies presentes na simulação, de acordo com a abundância da suas fontes de alimento.
 
 ## Metodologia 
@@ -33,6 +33,10 @@ Todos os valores parametrizáveis:
 
 Os gráficos representates de todas as State Machines encontram-se no projecto.
 
+![Diagrama FSM peixes grandes](Images/StateMachineDiagramForBigFish.png)
+
+![Diagrama FSM peixes pequenos e médios](Images/StateMachineDiagramForSmallAndMediumFish.png)
+
 ## Discusão
 
 A simulação teve o resultado esperado mas com algumas reações interessantes quando se mexia demasiado com os parametros dentro dela dês de:
@@ -48,9 +52,9 @@ Em conclusão a simulação revelou que o balanceamento de ecossistema aquático
 
 ## Referências
 O professor Nuno Fachada
+
 Millington, I. (2019). AI for Games (3rd ed.). CRC Press.
+
 Huisman J.,  Weissing F.J.. Biodiversity of plankton by species oscillations and chaos, Nature, 1999, vol. 402 (pg. 407-410)
+
 [Large-scale variation in density of an aquatic ecosystem indicator species](https://www.nature.com/articles/s41598-018-26847-x)
-
-
-
