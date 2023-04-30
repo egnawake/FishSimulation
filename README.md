@@ -37,7 +37,7 @@ Os gráficos representates de todas as State Machines encontram-se no projecto.
 
 ![Diagrama FSM peixes pequenos e médios](Images/StateMachineDiagramForSmallAndMediumFish.png)
 
-## Discusão
+## Discussão
 
 A simulação teve o resultado esperado mas com algumas reações interessantes quando se mexia demasiado com os parametros dentro dela dês de:
 - eventos de extinção quando se aumenta demasiado a taxa de perda de energia
