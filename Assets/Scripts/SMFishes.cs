@@ -10,83 +10,81 @@ public class SMFishes : MonoBehaviour
 
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float eatingRange = 0.5f;
+    [SerializeField] private SteeringBehaviour seekBehavior;
+    [SerializeField] private SteeringBehaviour fleeBehavior;
 
     private DynamicAgent dagent;
     private StateMachine fsm;
+    private Food food;
 
     private float energy;
     private Food food;
 
     private Food foodTarget;
-    private Food enemy;
+    private Food enemyTarget;
 
     private void Start()
     {
         dagent = GetComponent<DynamicAgent>();
         food = GetComponent<Food>();
 
-        State wanderState = new State("Wander", () => Debug.Log("Enter wander state"), Wander, () => Debug.Log("Exit on wander state"));
+        // States
+        State wanderState = new State("Wander",
+            null,
+            Wander,
+            null);
 
-        State huntingState = new State("Hunting", () => Debug.Log("Enter hunting state"), LookForFood, () => Debug.Log("Exit on hunting state"));
+        State huntingState = new State("Hunting",
+            null,
+            Eat,
+            null);
 
-        State runState = new State("Run", () => Debug.Log("Enter run state"), Run, () => Debug.Log("Exit on run state"));
+        State runState = new State("Run",
+            null,
+            Run,
+            null);
 
-        Transition Wander2Hunting = new Transition(
-            () => (transform.position - food.transform.position).magnitude < detectionRange,
-            () => Debug.Log("See food"),
-            huntingState
-            );
+        // Transitions from "wander"
+        Transition wander2Run = new Transition(
+            () => enemyTarget != null,
+            StartFleeing,
+            runState);
+        wanderState.AddTransition(wander2Run);
 
-        Transition Run2Hunting = new Transition(
-            () => (transform.position - food.transform.position).magnitude < detectionRange
-            && (transform.position - enemy.transform.position).magnitude < detectionRange,
-            () => Debug.Log("See food"),
-            huntingState
-            );
+        Transition wander2Hunting = new Transition(
+            () => foodTarget != null,
+            StartHunting,
+            huntingState);
+        wanderState.AddTransition(wander2Hunting);
 
-        wanderState.AddTransition(Wander2Hunting);
-        runState.AddTransition(Run2Hunting);
+        // Transitions from "hunting"
+        Transition hunting2Wander = new Transition(
+            () => foodTarget == null,
+            null,
+            wanderState);
+        huntingState.AddTransition(hunting2Wander);
 
-        Transition Hunting2Wander = new Transition(
-            () => (transform.position - food.transform.position).magnitude > detectionRange,
-            () => Debug.Log("Nothing To eat"),
-            wanderState
-            );
+        Transition hunting2Run = new Transition(
+            () => enemyTarget != null,
+            StartFleeing,
+            runState);
+        huntingState.AddTransition(hunting2Run);
 
-        Transition Run2Wander = new Transition(
-            () => (transform.position - food.transform.position).magnitude > detectionRange
-            && (transform.position - enemy.transform.position).magnitude > detectionRange,
-            () => Debug.Log("Am Safe"),
-            wanderState
-            );
-
-        runState.AddTransition(Run2Wander);
-        huntingState.AddTransition(Hunting2Wander);
-
-        Transition Hunting2Run = new Transition(
-            () => (transform.position - enemy.transform.position).magnitude < detectionRange,
-            () => Debug.Log("Can't eat gotta run"),
-            runState
-            );
-
-        Transition Wander2Run = new Transition(
-            () => (transform.position - food.transform.position).magnitude < detectionRange,
-            () => Debug.Log("Oh no i'm afraid"),
-            runState
-            );
-
-        wanderState.AddTransition(Wander2Run);
-        huntingState.AddTransition(Hunting2Run);
+        // Transitions from "run"
+        Transition run2Wander = new Transition(
+            () => enemyTarget == null,
+            null,
+            wanderState);
+        runState.AddTransition(run2Wander);
 
         fsm = new StateMachine(wanderState);
     }
 
     void Update()
     {
-        //Action actionToDo = fsm.Update();
-        //actionToDo?.Invoke();
+        Action actionToDo = fsm.Update();
+        actionToDo?.Invoke();
 
-        Eat();
         UpdateEntitiesInRange();
     }
 
@@ -100,13 +98,12 @@ public class SMFishes : MonoBehaviour
 
     }
 
-    private void LookForFood()
-    {
-
-    }
-
     private void UpdateEntitiesInRange()
     {
+        // Reset targets
+        foodTarget = null;
+        enemyTarget = null;
+
         // Find colliders of entities in range
         Collider2D[] entitiesInRange = Physics2D.OverlapCircleAll(transform.position,
             detectionRange);
@@ -125,9 +122,9 @@ public class SMFishes : MonoBehaviour
             if (potentialFood != null) break;
         }
 
-        // If food is edible by us, register it as target
         if (potentialFood != null)
         {
+            // If food is edible by us, register it as food
             foreach (FoodData foodData in potentialFood.Data.EdibleBy)
             {
                 if (foodData == food.Data)
@@ -135,13 +132,16 @@ public class SMFishes : MonoBehaviour
                     foodTarget = potentialFood;
                 }
             }
-        }
-        else
-        {
-            foodTarget = null;
-        }
 
-        dagent.TargetObject = foodTarget?.gameObject;
+            // If we are edible by target, register it as enemy
+            foreach (FoodData foodData in food.Data.EdibleBy)
+            {
+                if (foodData == potentialFood.Data)
+                {
+                    enemyTarget = potentialFood;
+        }
+        }
+        }
     }
 
     private void Eat()
@@ -155,6 +155,20 @@ public class SMFishes : MonoBehaviour
 
         energy = energy + foodTarget.Data.EnergyGranted;
         foodTarget.BeEaten();
+    }
+
+    private void StartHunting()
+    {
+        dagent.TargetObject = foodTarget.gameObject;
+        seekBehavior.enabled = true;
+        fleeBehavior.enabled = false;
+    }
+
+    private void StartFleeing()
+    {
+        dagent.TargetObject = enemyTarget.gameObject;
+        seekBehavior.enabled = false;
+        fleeBehavior.enabled = true;
     }
 
     private void OnDrawGizmos()
