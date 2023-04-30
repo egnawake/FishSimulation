@@ -79,6 +79,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c1d6b2aa495d7ee4ba9a2713285694c6, type: 2}
+    - target: {fileID: 6764062965127081553, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
+      propertyPath: foodData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4e43041c93aefa840b3371fadae1df77, type: 2}
     - target: {fileID: 6785894550895069551, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
       propertyPath: m_Size.x
       value: 1.7018942

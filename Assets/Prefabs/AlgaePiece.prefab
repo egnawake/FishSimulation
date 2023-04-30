@@ -138,6 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1369378469065256172}
+  - component: {fileID: 7779092237259050062}
   m_Layer: 0
   m_Name: AlgaePiece
   m_TagString: Untagged
@@ -162,6 +163,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7779092237259050062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369378469065256171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604bba4d6e0367c469205eaf370f66ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stackTransform: {fileID: 9112303935330284140}
 --- !u!1 &9177732601390193717
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9112303935330284140}
   m_Layer: 0
-  m_Name: StackSpawnPoint
+  m_Name: StackTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
