@@ -37,6 +37,9 @@ namespace AIUnityExamples.Movement.Dynamic
         // The agent's rigid body
         private Rigidbody2D rb;
 
+        // Settable target object
+        public GameObject TargetObject { get; set; }
+
         // Maximum acceleration for this agent
         public float MaxAccel => maxAccel;
 
@@ -73,9 +76,11 @@ namespace AIUnityExamples.Movement.Dynamic
         private void FixedUpdate()
         {
             // Is there any target for me?
-            GameObject target = targetTag != ""
-                ? GameObject.FindWithTag(targetTag)
-                : null;
+            GameObject target = TargetObject != null
+                ? TargetObject
+                : targetTag != ""
+                    ? GameObject.FindWithTag(targetTag)
+                    : null;
 
             // Obtain steering behaviours
             SteeringOutput steerWeighted = new SteeringOutput();

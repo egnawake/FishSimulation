@@ -1,20 +1,25 @@
-using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using LibGameAI.FSMs;
+using AIUnityExamples.Movement.Dynamic;
 
 public class SMFishes : MonoBehaviour
 {
 
-    [SerializeField] private float detectionRange = 10f;
-    [SerializeField] private GameObject food;
-    [SerializeField] private GameObject bigBad;
+    [SerializeField] private float detectionRange = 1f;
 
     private StateMachine fsm;
+    private GameObject enemy;
+    private GameObject food;
+
+    private DynamicAgent dagent;
 
     private void Start()
     {
+        dagent = GetComponent<DynamicAgent>();
+
         State wanderState = new State("Wander", () => Debug.Log("Enter wander state"), Wander, () => Debug.Log("Exit on wander state"));
 
         State huntingState = new State("Hunting", () => Debug.Log("Enter hunting state"), LookForFood, () => Debug.Log("Exit on hunting state"));
@@ -28,8 +33,8 @@ public class SMFishes : MonoBehaviour
             );
 
         Transition Run2Hunting = new Transition(
-            () => (transform.position - food.transform.position).magnitude < detectionRange 
-            && (transform.position - bigBad.transform.position).magnitude < detectionRange,
+            () => (transform.position - food.transform.position).magnitude < detectionRange
+            && (transform.position - enemy.transform.position).magnitude < detectionRange,
             () => Debug.Log("See food"),
             huntingState
             );
@@ -45,7 +50,7 @@ public class SMFishes : MonoBehaviour
 
         Transition Run2Wander = new Transition(
             () => (transform.position - food.transform.position).magnitude > detectionRange
-            && (transform.position - bigBad.transform.position).magnitude > detectionRange,
+            && (transform.position - enemy.transform.position).magnitude > detectionRange,
             () => Debug.Log("Am Safe"),
             wanderState
             );
@@ -54,7 +59,7 @@ public class SMFishes : MonoBehaviour
         huntingState.AddTransition(Hunting2Wander);
 
         Transition Hunting2Run = new Transition(
-            () => (transform.position - bigBad.transform.position).magnitude < detectionRange,
+            () => (transform.position - enemy.transform.position).magnitude < detectionRange,
             () => Debug.Log("Can't eat gotta run"),
             runState
             );
@@ -67,12 +72,16 @@ public class SMFishes : MonoBehaviour
 
         wanderState.AddTransition(Wander2Run);
         huntingState.AddTransition(Hunting2Run);
+
+        fsm = new StateMachine(wanderState);
     }
 
     void Update()
     {
-        Action actionToDo = fsm.Update();
-        actionToDo?.Invoke();
+        //Action actionToDo = fsm.Update();
+        //actionToDo?.Invoke();
+
+        UpdateEntitiesInRange();
     }
 
     private void Run()
@@ -88,5 +97,23 @@ public class SMFishes : MonoBehaviour
     private void LookForFood()
     {
 
+    }
+
+    private void UpdateEntitiesInRange()
+    {
+        // Find colliders of entities in range
+        Collider2D[] entitiesInRange = Physics2D.OverlapCircleAll(transform.position,
+            detectionRange);
+
+        // Sort entities by distance
+        IEnumerable<GameObject> sortedEntities = entitiesInRange
+            .Select(collider => collider.gameObject)
+            .OrderBy(gameObject => (transform.position - gameObject.transform.position).magnitude);
+
+        // Get closest algae object
+        food = sortedEntities.FirstOrDefault(
+            gameObject => gameObject.GetComponent<Algae>() != null);
+
+        dagent.TargetObject = food;
     }
 }
