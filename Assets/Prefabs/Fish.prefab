@@ -294,7 +294,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.568}
+  m_AnchoredPosition: {x: 0, y: 0.762}
   m_SizeDelta: {x: 800, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3320106836983872840
@@ -382,7 +382,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc5ddc45a03b7948a51eef88761ab6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentFish: {fileID: 2881856731492793334}
   energyText: {fileID: 4545736298960687139}
+  offset: {x: 0, y: 0.762, z: 0}
 --- !u!1 &2549898004758846562
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,8 +479,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionRange: 4
   eatingRange: 0.5
+  maxEnergy: 100
+  energyLossRate: 1
+  reproductionEnergyThreshold: 50
   seekBehavior: {fileID: 4199872009785067143}
   fleeBehavior: {fileID: 2643378830685291942}
+  childPrefab: {fileID: 2549898004758846562}
 --- !u!114 &6764062965127081553
 MonoBehaviour:
   m_ObjectHideFlags: 0

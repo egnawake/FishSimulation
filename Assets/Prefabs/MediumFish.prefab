@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 176661262710840046, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
+      propertyPath: offset.y
+      value: 0.969
+      objectReference: {fileID: 0}
     - target: {fileID: 2549898004758846562, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
       propertyPath: m_Name
       value: MediumFish
@@ -55,6 +59,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5172145475945985638, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.969
+      objectReference: {fileID: 0}
     - target: {fileID: 5544334365019395339, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6
@@ -77,11 +85,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 50eee8b0ae9188c44934fa4f10753566, type: 2}
     - target: {fileID: 6785894550895069551, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
       propertyPath: m_Size.x
-      value: 1.2957137
+      value: 1.2057177
       objectReference: {fileID: 0}
     - target: {fileID: 6785894550895069551, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
       propertyPath: m_Size.y
-      value: 0.6242216
+      value: 0.62422264
       objectReference: {fileID: 0}
     - target: {fileID: 6785894550895069551, guid: 202b28ae656468a448f49c0b91c9cf11, type: 3}
       propertyPath: m_Offset.x
