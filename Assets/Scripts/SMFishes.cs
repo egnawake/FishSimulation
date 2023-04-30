@@ -9,12 +9,14 @@ public class SMFishes : MonoBehaviour
 {
 
     [SerializeField] private float detectionRange = 1f;
-
-    private StateMachine fsm;
-    private GameObject enemy;
-    private GameObject food;
+    [SerializeField] private float eatingRange = 0.5f;
 
     private DynamicAgent dagent;
+    private StateMachine fsm;
+
+    private float energy;
+    private GameObject enemy;
+    private Algae food;
 
     private void Start()
     {
@@ -82,6 +84,7 @@ public class SMFishes : MonoBehaviour
         //actionToDo?.Invoke();
 
         UpdateEntitiesInRange();
+        Eat();
     }
 
     private void Run()
@@ -111,9 +114,22 @@ public class SMFishes : MonoBehaviour
             .OrderBy(gameObject => (transform.position - gameObject.transform.position).magnitude);
 
         // Get closest algae object
-        food = sortedEntities.FirstOrDefault(
+        GameObject algaeObject = sortedEntities.FirstOrDefault(
             gameObject => gameObject.GetComponent<Algae>() != null);
 
-        dagent.TargetObject = food;
+        dagent.TargetObject = algaeObject;
+        food = algaeObject?.GetComponent<Algae>();
+    }
+
+    private void Eat()
+    {
+        if (food == null) return;
+
+        float distanceToFood = Vector3.Distance(food.transform.position,
+            transform.position);
+
+        if (distanceToFood > eatingRange) return;
+
+        energy = energy + food.BeEaten();
     }
 }
