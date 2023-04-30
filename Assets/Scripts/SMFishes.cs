@@ -9,17 +9,17 @@ using AIUnityExamples.Movement.Dynamic;
 
 public class SMFishes : MonoBehaviour
 {
-
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float eatingRange = 0.5f;
     [SerializeField] private float maxEnergy = 100f;
     [SerializeField] private float energyLossRate = 1f;
+    [SerializeField] private float reproductionEnergyThreshold = 50f;
     [SerializeField] private SteeringBehaviour seekBehavior;
     [SerializeField] private SteeringBehaviour fleeBehavior;
+    [SerializeField] private GameObject childPrefab;
 
     private DynamicAgent dagent;
     private StateMachine fsm;
-    private FishInfoPanel infoPanel;
     private Food food;
 
     private float energy;
@@ -50,7 +50,6 @@ public class SMFishes : MonoBehaviour
     {
         dagent = GetComponent<DynamicAgent>();
         food = GetComponent<Food>();
-        infoPanel = GetComponentInChildren<FishInfoPanel>();
 
         // States
         State wanderState = new State("Wander",
@@ -120,7 +119,7 @@ public class SMFishes : MonoBehaviour
 
     private void Wander()
     {
-
+        Reproduce();
     }
 
     private void UpdateEntitiesInRange()
@@ -187,6 +186,17 @@ public class SMFishes : MonoBehaviour
         foodTarget.BeEaten();
     }
 
+    private void Reproduce()
+    {
+        if (Energy < reproductionEnergyThreshold) return;
+
+        GameObject child = Instantiate(childPrefab);
+        PositionChild(child);
+        child.GetComponent<SMFishes>().Energy = Energy / 2;
+
+        Energy = Energy / 2;
+    }
+
     private void StartHunting()
     {
         dagent.TargetObject = foodTarget.gameObject;
@@ -199,6 +209,13 @@ public class SMFishes : MonoBehaviour
         dagent.TargetObject = enemyTarget.gameObject;
         seekBehavior.enabled = false;
         fleeBehavior.enabled = true;
+    }
+
+    private void PositionChild(GameObject child)
+    {
+        // Give children a random facing direction
+        float direction = Random.Range(0f, 360f);
+        child.transform.eulerAngles = new Vector3(0f, 0f, direction);
     }
 
     private void OnDrawGizmos()
