@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
 using LibGameAI.FSMs;
 using AIUnityExamples.Movement.Dynamic;
 
@@ -10,6 +12,8 @@ public class SMFishes : MonoBehaviour
 
     [SerializeField] private float detectionRange = 1f;
     [SerializeField] private float eatingRange = 0.5f;
+    [SerializeField] private float maxEnergy = 100f;
+    [SerializeField] private float energyLossRate = 1f;
     [SerializeField] private SteeringBehaviour seekBehavior;
     [SerializeField] private SteeringBehaviour fleeBehavior;
 
@@ -19,18 +23,28 @@ public class SMFishes : MonoBehaviour
     private Food food;
 
     private float energy;
-    private float Energy
+    private Food foodTarget;
+    private Food enemyTarget;
+
+    private UnityEvent energyChanged;
+
+    public float Energy
     {
         get => energy;
         set
         {
-            energy = value;
-            infoPanel.Energy = value;
+            energy = Mathf.Clamp(value, 0f, maxEnergy);
+
+            energyChanged.Invoke();
         }
     }
 
-    private Food foodTarget;
-    private Food enemyTarget;
+    public UnityEvent EnergyChanged => energyChanged;
+
+    private void Awake()
+    {
+        energyChanged = new UnityEvent();
+    }
 
     private void Start()
     {
@@ -95,6 +109,7 @@ public class SMFishes : MonoBehaviour
         Action actionToDo = fsm.Update();
         actionToDo?.Invoke();
 
+        LoseEnergy();
         UpdateEntitiesInRange();
     }
 
@@ -152,6 +167,11 @@ public class SMFishes : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void LoseEnergy()
+    {
+        Energy = Energy - energyLossRate * Time.deltaTime;
     }
 
     private void Eat()
